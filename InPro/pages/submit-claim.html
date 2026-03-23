@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Submit a Claim — InPro</title>
+  <meta name="description" content="Submit your contents claim to InPro. Complete adjuster, policyholder, and claim details. Attach files in any format."/>
+  <link rel="icon" href="../assets/img/IP.ico"/>
+  <link rel="stylesheet" href="../assets/css/styles.css"/>
+  <style>
+    .form-section-block { margin-bottom: 40px; padding-bottom: 36px; border-bottom: 1px solid var(--line); }
+    .form-section-block:last-child { border-bottom: none; margin-bottom: 0; }
+    .optional-tag { font-size: 11px; font-weight: 600; color: var(--muted); background: var(--bg); border: 1px solid var(--line); padding: 2px 7px; border-radius: 5px; margin-left: 6px; vertical-align: middle; }
+    .currency-input { position: relative; }
+    .currency-input::before { content: '$'; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-weight: 600; font-size: 15px; pointer-events: none; }
+    .currency-input input { padding-left: 26px; }
+    .radio-group { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 6px; }
+    .radio-group label { display: flex; align-items: center; gap: 7px; font-weight: 500; font-size: 14.5px; cursor: pointer; color: var(--text); }
+    .radio-group input[type="radio"] { width: auto; padding: 0; accent-color: var(--blue); cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="../index.html">
+        <span class="brand-wordmark"><span class="hi">I</span>n<span class="hi">P</span>ro</span>
+      </a>
+      <nav class="nav-links">
+        <a href="solutions.html">Solutions</a>
+        <a href="process.html">Process</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn-nav submit-nav" href="submit-claim.html">Submit a Claim</a>
+        <a class="btn-nav qcl-nav" href="login.html"><span class="qcl-dot"></span>QCL Login</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <div class="container">
+        <a href="../index.html">Home</a>
+        <a href="solutions.html">Solutions</a>
+        <a href="process.html">Process</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <div class="mob-ctas">
+          <a class="btn teal full" href="submit-claim.html">Submit a Claim</a>
+          <a class="btn outline-white full" href="login.html">QCL Login</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="sec-eyebrow">Claim Submission</div>
+    <h1>Submit a Contents Claim</h1>
+    <p>Complete all required fields and attach any supporting files. A confirmation will be sent to the adjuster email on record. Our team will follow up within one business day.</p>
+  </div>
+</section>
+
+<section class="form-section">
+  <div class="container">
+    <div class="form-layout">
+
+      <!-- MAIN FORM -->
+      <div class="form-card">
+        <form id="claimForm" action="../submit.php" method="POST" enctype="multipart/form-data" novalidate>
+
+          <!-- ── SECTION 1: Adjuster / Claim Information ── -->
+          <div class="form-section-block">
+            <div class="form-section-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
+              Adjuster &amp; Claim Information
+            </div>
+
+            <div class="form-group">
+              <label for="insurance_company">Insurance Company <span class="req">*</span></label>
+              <input type="text" id="insurance_company" name="insurance_company" placeholder="e.g. Intact Insurance, Aviva, TD Insurance" required/>
+            </div>
+
+            <div class="form-row form-group">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="insurer_claim_number">Insurer Claim Number <span class="req">*</span></label>
+                <input type="text" id="insurer_claim_number" name="insurer_claim_number" placeholder="CLM-2026-XXXXXX" required/>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="date_of_loss">Date of Loss <span class="req">*</span></label>
+                <input type="date" id="date_of_loss" name="date_of_loss" required/>
+              </div>
+            </div>
+
+            <div class="form-row form-group">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="adj_name">Adjuster Name <span class="req">*</span><span style="font-size:11.5px;font-weight:400;color:var(--muted)"> — main claim contact</span></label>
+                <input type="text" id="adj_name" name="adj_name" placeholder="Jane Smith" required/>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="adj_email">Adjuster Email <span class="req">*</span></label>
+                <input type="email" id="adj_email" name="adj_email" placeholder="adjuster@company.com" required/>
+                <p class="form-hint">Confirmation will be sent here</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="adj_phone">Adjuster Phone Number <span class="req">*</span></label>
+              <input type="tel" id="adj_phone" name="adj_phone" placeholder="(416) 555-0100" style="max-width:300px" required/>
+            </div>
+
+            <div class="form-row form-group">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="ia_company">Independent Adjuster Company <span class="optional-tag">if applicable</span></label>
+                <input type="text" id="ia_company" name="ia_company" placeholder="IA Firm Name"/>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="ia_file_number">Independent Adjuster File № <span class="optional-tag">if applicable</span></label>
+                <input type="text" id="ia_file_number" name="ia_file_number" placeholder="IA File Number"/>
+              </div>
+            </div>
+
+            <div class="form-row form-group">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="examiner_name">Examiner Name <span class="optional-tag">if applicable</span></label>
+                <input type="text" id="examiner_name" name="examiner_name" placeholder="Examiner / Carrier Rep"/>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="examiner_email">Examiner Email <span class="optional-tag">if applicable</span></label>
+                <input type="email" id="examiner_email" name="examiner_email" placeholder="examiner@carrier.com"/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="examiner_phone">Examiner Phone Number <span class="optional-tag">if applicable</span></label>
+              <input type="tel" id="examiner_phone" name="examiner_phone" placeholder="(416) 555-0200" style="max-width:300px"/>
+            </div>
+
+            <div class="form-row form-group">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="claim_type">Claim Type <span class="req">*</span></label>
+                <select id="claim_type" name="claim_type" required>
+                  <option value="">— Select —</option>
+                  <option>Fire</option>
+                  <option>Water / Flood</option>
+                  <option>Theft</option>
+                  <option>Wind / Hail</option>
+                  <option>Catastrophe</option>
+                  <option>Vandalism</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="content_loss_estimate">Content Loss Estimate</label>
+                <div class="currency-input">
+                  <input type="number" id="content_loss_estimate" name="content_loss_estimate" placeholder="0.00" min="0" step="0.01"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row form-group">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="policy_limit">Policy Limit</label>
+                <div class="currency-input">
+                  <input type="number" id="policy_limit" name="policy_limit" placeholder="0.00" min="0" step="0.01"/>
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="deductible">Deductible</label>
+                <div class="currency-input">
+                  <input type="number" id="deductible" name="deductible" placeholder="0.00" min="0" step="0.01"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="special_limits">Special Limits <span class="optional-tag">e.g. jewellery, electronics, art</span></label>
+              <input type="text" id="special_limits" name="special_limits" placeholder="Describe any applicable sublimits or coverage notes"/>
+            </div>
+          </div>
+
+          <!-- ── SECTION 2: InPro Services Requested ── -->
+          <div class="form-section-block">
+            <div class="form-section-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              InPro Services Requested
+            </div>
+
+            <div class="form-group">
+              <label>Is onsite inventory required for contents? <span class="req">*</span></label>
+              <div class="radio-group">
+                <label><input type="radio" name="onsite_required" value="Yes" required/> Yes — onsite attendance required</label>
+                <label><input type="radio" name="onsite_required" value="No"/> No — desk claim / remote processing</label>
+                <label><input type="radio" name="onsite_required" value="Unsure"/> Unsure — please advise</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="services_requested">Additional Services Required <span class="optional-tag">optional</span></label>
+              <select id="services_requested" name="services_requested">
+                <option value="">— Select if applicable —</option>
+                <option>RCV / ACV Valuation Only</option>
+                <option>Complex / High-Value Item Analysis</option>
+                <option>Schedule of Loss Cleanup &amp; Standardization</option>
+                <option>Catastrophe Claim Support</option>
+                <option>Dispute &amp; Appraisal Support</option>
+                <option>Expert Witness Engagement</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="service_details">Details <span class="optional-tag">optional</span></label>
+              <textarea id="service_details" name="service_details" placeholder="Provide any additional context about the services needed, file complexity, or special requirements…" style="min-height:90px"></textarea>
+            </div>
+          </div>
+
+          <!-- ── SECTION 3: Policyholder Information ── -->
+          <div class="form-section-block">
+            <div class="form-section-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 22V12h6v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Policyholder Information
+            </div>
+
+            <div class="form-row form-group">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="insured_names">Name(s) <span class="req">*</span></label>
+                <input type="text" id="insured_names" name="insured_names" placeholder="John &amp; Jane Doe" required/>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="insured_type">Insured Type <span class="req">*</span></label>
+                <select id="insured_type" name="insured_type" required>
+                  <option value="">— Select —</option>
+                  <option>Homeowner</option>
+                  <option>Tenant / Renter</option>
+                  <option>Condo Owner</option>
+                  <option>Commercial</option>
+                  <option>Landlord</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Contact with Policyholder Allowed? <span class="req">*</span></label>
+              <div class="radio-group">
+                <label><input type="radio" name="ph_contact_allowed" value="Yes" required/> Yes</label>
+                <label><input type="radio" name="ph_contact_allowed" value="No"/> No — contact adjuster only</label>
+                <label><input type="radio" name="ph_contact_allowed" value="Limited"/> Limited — see notes</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="loss_address">Address <span class="req">*</span></label>
+              <input type="text" id="loss_address" name="loss_address" placeholder="123 Main Street" required/>
+            </div>
+
+            <div class="form-row-3 form-group">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="loss_city">City <span class="req">*</span></label>
+                <input type="text" id="loss_city" name="loss_city" placeholder="Toronto" required/>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="loss_province">Province <span class="req">*</span></label>
+                <select id="loss_province" name="loss_province" required>
+                  <option value="">— Select —</option>
+                  <option>Alberta</option><option>British Columbia</option><option>Manitoba</option>
+                  <option>New Brunswick</option><option>Newfoundland and Labrador</option>
+                  <option>Nova Scotia</option><option>Ontario</option><option>Prince Edward Island</option>
+                  <option>Quebec</option><option>Saskatchewan</option>
+                  <option>Northwest Territories</option><option>Nunavut</option><option>Yukon</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="postal_code">Postal Code</label>
+                <input type="text" id="postal_code" name="postal_code" placeholder="M5V 1A1"/>
+              </div>
+            </div>
+
+            <div class="form-row form-group">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="ph_email">Policyholder Email</label>
+                <input type="email" id="ph_email" name="ph_email" placeholder="insured@email.com"/>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="ph_mobile">Mobile Phone</label>
+                <input type="tel" id="ph_mobile" name="ph_mobile" placeholder="(416) 555-0300"/>
+              </div>
+            </div>
+
+            <div class="form-row form-group">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="ph_home">Home Phone</label>
+                <input type="tel" id="ph_home" name="ph_home" placeholder="(416) 555-0400"/>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="ph_business">Business Phone</label>
+                <input type="tel" id="ph_business" name="ph_business" placeholder="(416) 555-0500"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SECTION 4: Contractor Information ── -->
+          <div class="form-section-block">
+            <div class="form-section-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Contractor Information <span class="optional-tag">if applicable</span>
+            </div>
+
+            <div class="form-row form-group">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="contractor_company">Contractor Company Name</label>
+                <input type="text" id="contractor_company" name="contractor_company" placeholder="ABC Restoration Inc."/>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="contractor_contact">Contractor Contact Name</label>
+                <input type="text" id="contractor_contact" name="contractor_contact" placeholder="Contact person"/>
+              </div>
+            </div>
+
+            <div class="form-row form-group">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="contractor_email">Contractor Email</label>
+                <input type="email" id="contractor_email" name="contractor_email" placeholder="contact@contractor.com"/>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="contractor_phone">Contractor Phone</label>
+                <input type="tel" id="contractor_phone" name="contractor_phone" placeholder="(416) 555-0600"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SECTION 5: Notes / Safety Issues ── -->
+          <div class="form-section-block">
+            <div class="form-section-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              Notes &amp; Safety Issues
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label for="notes_safety">Notes / Safety Issues <span class="optional-tag">optional</span></label>
+              <textarea id="notes_safety" name="notes_safety" placeholder="Note any site access restrictions, safety hazards, special handling instructions, contact restrictions, or anything else our team should know before attending or processing this file…" style="min-height:120px"></textarea>
+            </div>
+          </div>
+
+          <!-- ── SECTION 6: File Attachments ── -->
+          <div class="form-section-block">
+            <div class="form-section-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              File Attachments
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <div class="file-upload-area" id="fileUploadArea" role="button" tabindex="0">
+                <input type="file" id="fileInput" name="claim_files[]" multiple accept=".pdf,.xls,.xlsx,.doc,.docx,.jpg,.jpeg,.png,.heic,.zip,.csv,.msg,.eml"/>
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" style="color:var(--blue);margin:0 auto 12px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="17 8 12 3 7 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="3" x2="12" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <p><strong>Click to upload</strong> or drag and drop files here</p>
+                <p style="font-size:13px;color:var(--muted);margin-top:6px">Please attach supporting files such as a Content List or Schedule of Loss. <strong>Native Excel format is preferred</strong> for faster processing, but all file types are accepted.</p>
+                <p class="file-types" style="margin-top:8px">Excel · PDF · Word · JPG · PNG · HEIC · ZIP · CSV — up to 50 MB per file</p>
+              </div>
+              <div class="file-list" id="fileList"></div>
+              <p class="form-hint" style="margin-top:10px">If you are unable to upload files, email them directly to <a href="mailto:claims@inproclaims.com" style="color:var(--blue)">claims@inproclaims.com</a> and reference your claim number.</p>
+            </div>
+          </div>
+
+          <div class="form-submit-row">
+            <p style="font-size:13px;color:var(--muted)">All files handled securely and confidentially.</p>
+            <button type="submit" class="btn teal lg">
+              Submit Claim File
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="form-sidebar">
+        <div class="sidebar-urgent">
+          <h4>Urgent File?</h4>
+          <p>Email us directly at <a href="mailto:claims@inproclaims.com">claims@inproclaims.com</a> with <strong>"URGENT"</strong> in the subject line and your claim number.</p>
+        </div>
+
+        <div class="sidebar-card">
+          <h4>What Happens Next</h4>
+          <ul class="sidebar-list">
+            <li>Confirmation sent to adjuster email immediately</li>
+            <li>File reviewed by an InPro specialist</li>
+            <li>Follow-up within one business day</li>
+            <li>Carrier-ready Schedule of Loss delivered on completion</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h4>Preferred File Formats</h4>
+          <ul class="sidebar-list">
+            <li>Excel (.xls, .xlsx) — preferred</li>
+            <li>PDF documents</li>
+            <li>Photos (JPG, PNG, HEIC)</li>
+            <li>Word documents</li>
+            <li>CSV, ZIP archives</li>
+          </ul>
+          <p style="margin-top:10px;font-size:13px;color:var(--muted)">We work from any starting point — photos, handwritten lists, or contractor-generated schedules.</p>
+        </div>
+
+        <div class="sidebar-card">
+          <h4>Questions?</h4>
+          <p style="font-size:13.5px;color:var(--muted)">Contact our claims team:</p>
+          <p style="margin-top:6px"><a href="mailto:claims@inproclaims.com" style="color:var(--blue);font-weight:700">claims@inproclaims.com</a></p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html">
+          <span class="brand-wordmark" style="font-size:20px"><span class="hi">I</span>n<span class="hi">P</span>ro</span>
+        </a>
+        <p>Canada's specialized contents inventory and valuation firm. In practice since 2006.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="solutions.html">All Services</a></li><li><a href="process.html">Our Process</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4>
+        <div class="footer-contact-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/><path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="2"/></svg><a href="mailto:claims@inproclaims.com">claims@inproclaims.com</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 InPro. All rights reserved.</p>
+      <p><a href="../index.html">Home</a> &nbsp;|&nbsp; <a href="contact.html">Contact</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

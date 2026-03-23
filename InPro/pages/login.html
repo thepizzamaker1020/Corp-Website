@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Quantum ClaimsLogic — Secure Login</title>
+  <meta name="robots" content="noindex"/>
+  <link rel="icon" href="../assets/img/IP.ico"/>
+  <link rel="stylesheet" href="../assets/css/styles.css"/>
+</head>
+<body class="login-page">
+
+<!-- Animated particles -->
+<div class="login-particles" id="particles" aria-hidden="true"></div>
+
+<!-- Minimal nav -->
+<div class="login-nav">
+  <a class="brand" href="../index.html" aria-label="Back to InPro">
+    <span class="brand-wordmark" style="font-size:17px"><span class="hi">I</span>n<span class="hi">P</span>ro</span>
+  </a>
+  <div class="status-indicator">
+    <span class="status-dot" aria-hidden="true"></span>
+    All systems operational
+  </div>
+</div>
+
+<!-- Login card -->
+<main class="login-wrap">
+  <div class="login-card">
+
+    <!-- QCL Logo -->
+    <div class="login-logo-wrap">
+      <img src="../assets/img/Quantumcl.jpg" alt="Quantum ClaimsLogic" style="max-width:220px;width:100%;height:auto;display:block;margin:0 auto 10px;border-radius:6px"/>
+      <div class="login-sys-name">Secure Client Portal</div>
+    </div>
+
+    <div class="login-title">Sign In to Your Account</div>
+    <div class="login-sub">Access your claims, reports, and valuation schedules</div>
+
+    <!-- Error message (hidden until login attempt) -->
+    <div id="loginError" class="alert-box error" style="display:none;margin-bottom:16px" role="alert">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" flex-shrink="0"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <div><strong>Authentication failed.</strong> Please check your credentials and try again, or contact your administrator.</div>
+    </div>
+
+    <form class="login-form" id="qclLoginForm" novalidate>
+      <div>
+        <label for="qcl_email">Email Address</label>
+        <input type="email" id="qcl_email" name="email" placeholder="you@company.com" autocomplete="email" required/>
+      </div>
+      <div>
+        <label for="qcl_password">Password</label>
+        <input type="password" id="qcl_password" name="password" placeholder="••••••••••" autocomplete="current-password" required/>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:-4px">
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.50);text-transform:none;letter-spacing:0;cursor:pointer">
+          <input type="checkbox" name="remember" style="width:auto;padding:0;border-radius:4px;accent-color:var(--blue)"/>
+          Remember me
+        </label>
+        <a href="#" onclick="return false;" style="font-size:13px;color:rgba(255,255,255,.40)">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn-login">Sign In</button>
+    </form>
+
+    <hr class="login-divider"/>
+
+    <div class="login-links">
+      <a href="#" onclick="return false;">Privacy Policy</a>
+      <a href="#" onclick="return false;">Terms of Use</a>
+      <a href="../index.html">← Back to InPro</a>
+    </div>
+
+    <div class="login-footer-note">
+      Quantum ClaimsLogic™ is a proprietary platform of InPro.<br/>
+      Unauthorized access is prohibited.<br/>
+      Need access? <a href="contact.html" style="color:rgba(255,255,255,.45)">Contact us</a>
+    </div>
+  </div>
+</main>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

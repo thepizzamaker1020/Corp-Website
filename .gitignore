@@ -1,0 +1,20 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+*.suo
+*.user
+
+# Temp / build
+*.log
+*.tmp
+*.bak
+
+# Old mockups (keep repo clean)
+Mock up 5.html
+mockup.html
+mockup2.html
+index_old.html
