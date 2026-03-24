@@ -228,10 +228,10 @@ $confirm_body .= "InPro — Contents Inventory & Valuation Specialists\n";
 $confirm_body .= "claims@inproclaims.com | Canada-wide | In practice since 2006\n";
 
 // ─── Build MIME email with attachments ───
-function build_mime_email(string $to, string $from_name, string $from_email, string $subject, string $body, array $attachments): array {
+function build_mime_email(string $to, string $from_name, string $from_email, string $subject, string $body, array $attachments, string $reply_to = ''): array {
     $boundary = '----InProBoundary_' . md5(uniqid());
     $headers  = "From: {$from_name} <{$from_email}>\r\n";
-    $headers .= "Reply-To: {$from_email}\r\n";
+    $headers .= "Reply-To: " . ($reply_to ?: $from_email) . "\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: multipart/mixed; boundary=\"{$boundary}\"\r\n";
     $headers .= "X-Mailer: InPro-Mailer/1.0\r\n";
@@ -257,7 +257,7 @@ function build_mime_email(string $to, string $from_name, string $from_email, str
 
 // ─── Send internal email (with attachments) ───
 $subject_internal = "New Claim — {$insurer_claim_number} — {$insured_names} ({$claim_type})";
-$internal = build_mime_email(CLAIMS_EMAIL, FROM_NAME, FROM_EMAIL, $subject_internal, $internal_body, $attachments);
+$internal = build_mime_email(CLAIMS_EMAIL, FROM_NAME, FROM_EMAIL, $subject_internal, $internal_body, $attachments, "{$adj_name} <{$adj_email}>");
 $sent_internal = mail(CLAIMS_EMAIL, $subject_internal, $internal['message'], $internal['headers']);
 
 // ─── Send confirmation to adjuster (no attachments) ───
@@ -272,5 +272,5 @@ foreach ($attachments as $file) {
 if (is_dir($upload_dir)) rmdir($upload_dir);
 
 // ─── Redirect ───
-header($sent_internal ? 'Location: pages/submit-claim.html?success=1' : 'Location: pages/submit-claim.html?error=1');
+header($sent_internal ? 'Location: pages/thank-you.html' : 'Location: pages/submit-claim.html?error=1');
 exit;

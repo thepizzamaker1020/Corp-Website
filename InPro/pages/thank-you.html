@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Claim Received — InPro</title>
+  <meta name="description" content="Your claim file has been received by InPro. Our team will follow up within one business day."/>
+  <link rel="icon" href="../assets/img/IP.ico"/>
+  <link rel="stylesheet" href="../assets/css/styles.css"/>
+  <style>
+    .thankyou-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 80px 24px 100px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .thankyou-icon {
+      width: 72px;
+      height: 72px;
+      background: #e6f4ee;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+    .thankyou-icon svg { color: #0d9488; }
+    .thankyou-wrap h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 16px; }
+    .thankyou-wrap .lead { font-size: 1.05rem; color: var(--muted); margin-bottom: 36px; line-height: 1.7; }
+    .thankyou-steps {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 28px 32px;
+      text-align: left;
+      width: 100%;
+      margin-bottom: 36px;
+    }
+    .thankyou-steps h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 16px; }
+    .thankyou-steps ol { margin: 0; padding-left: 20px; }
+    .thankyou-steps ol li { margin-bottom: 10px; font-size: 0.95rem; color: var(--text); line-height: 1.5; }
+    .thankyou-steps ol li:last-child { margin-bottom: 0; }
+    .thankyou-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="../index.html">
+        <span class="brand-wordmark"><span class="hi">I</span>n<span class="hi">P</span>ro</span>
+      </a>
+      <nav class="nav-links">
+        <a href="solutions.html">Solutions</a>
+        <a href="process.html">Process</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn-nav submit-nav" href="submit-claim.html">Submit a Claim</a>
+        <a class="btn-nav qcl-nav" href="login.html"><span class="qcl-dot"></span>QCL Login</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <div class="container">
+        <a href="../index.html">Home</a>
+        <a href="solutions.html">Solutions</a>
+        <a href="process.html">Process</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <div class="mob-ctas">
+          <a class="btn teal full" href="submit-claim.html">Submit a Claim</a>
+          <a class="btn outline-white full" href="login.html">QCL Login</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<section style="background: var(--bg); min-height: calc(100vh - 200px);">
+  <div class="thankyou-wrap">
+
+    <div class="thankyou-icon">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+        <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <div class="sec-eyebrow" style="margin-bottom:12px">Submission Received</div>
+    <h1>Your Claim File Has Been Submitted</h1>
+    <p class="lead">A confirmation has been sent to your adjuster email address. An InPro specialist will review your file and follow up within one business day.</p>
+
+    <div class="thankyou-steps">
+      <h3>What Happens Next</h3>
+      <ol>
+        <li>Your file is queued for review by an InPro specialist.</li>
+        <li>We confirm scope, review all attached materials, and request any missing details.</li>
+        <li>Inventory, classification, and valuation work begins.</li>
+        <li>A carrier-ready Schedule of Loss is delivered to you on completion.</li>
+      </ol>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--muted);margin-bottom:28px">
+      For urgent files, email <a href="mailto:claims@inproclaims.com" style="color:var(--blue);font-weight:600">claims@inproclaims.com</a> with <strong>"URGENT"</strong> in the subject line and your claim number.
+    </p>
+
+    <div class="thankyou-actions">
+      <a class="btn teal" href="submit-claim.html">Submit Another Claim</a>
+      <a class="btn outline" href="../index.html">Back to Home</a>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html">
+          <span class="brand-wordmark" style="font-size:20px"><span class="hi">I</span>n<span class="hi">P</span>ro</span>
+        </a>
+        <p>Canada's specialized contents inventory and valuation firm. In practice since 2006.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="solutions.html">All Services</a></li><li><a href="process.html">Our Process</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4>
+        <div class="footer-contact-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/><path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="2"/></svg><a href="mailto:claims@inproclaims.com">claims@inproclaims.com</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 InPro. All rights reserved.</p>
+      <p><a href="../index.html">Home</a> &nbsp;|&nbsp; <a href="contact.html">Contact</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

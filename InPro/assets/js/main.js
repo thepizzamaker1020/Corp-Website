@@ -30,24 +30,73 @@
   const list  = document.getElementById('fileList');
   if (!area || !input) return;
 
-  area.addEventListener('click', () => input.click());
-  area.addEventListener('dragover',  e => { e.preventDefault(); area.classList.add('dragover'); });
-  area.addEventListener('dragleave', () => area.classList.remove('dragover'));
-  area.addEventListener('drop', e => {
-    e.preventDefault(); area.classList.remove('dragover');
-    handleFiles(e.dataTransfer.files);
-  });
-  input.addEventListener('change', () => handleFiles(input.files));
+  // Persistent accumulator — survives multiple drop/browse operations
+  var stagedFiles = [];
 
-  function handleFiles(files) {
+  function mergeFiles(newFiles) {
+    Array.from(newFiles).forEach(function (f) {
+      // Skip duplicates (same name + size)
+      if (!stagedFiles.some(function (x) { return x.name === f.name && x.size === f.size; })) {
+        stagedFiles.push(f);
+      }
+    });
+    syncInput();
+    renderList();
+  }
+
+  function removeFile(index) {
+    stagedFiles.splice(index, 1);
+    syncInput();
+    renderList();
+  }
+
+  function syncInput() {
+    var dt = new DataTransfer();
+    stagedFiles.forEach(function (f) { dt.items.add(f); });
+    input.files = dt.files;
+  }
+
+  function renderList() {
     if (!list) return;
     list.innerHTML = '';
-    Array.from(files).forEach(f => {
-      const li = document.createElement('div');
-      li.className = 'file-item';
-      li.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="2"/></svg> ${f.name} <span style="color:var(--muted);font-size:11px">(${(f.size/1024).toFixed(0)} KB)</span>`;
-      list.appendChild(li);
+    stagedFiles.forEach(function (f, i) {
+      var div = document.createElement('div');
+      div.className = 'file-item';
+      div.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="2"/></svg> ' +
+        f.name + ' <span style="color:var(--muted);font-size:11px">(' + Math.round(f.size / 1024) + ' KB)</span>' +
+        '<button type="button" class="file-remove" aria-label="Remove file" data-index="' + i + '" style="margin-left:10px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px;line-height:1;padding:0 2px;">&times;</button>';
+      list.appendChild(div);
     });
+    list.querySelectorAll('.file-remove').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        removeFile(parseInt(btn.getAttribute('data-index'), 10));
+      });
+    });
+  }
+
+  area.addEventListener('click', function (e) {
+    if (e.target.classList.contains('file-remove')) return;
+    input.click();
+  });
+  area.addEventListener('dragover',  function (e) { e.preventDefault(); area.classList.add('dragover'); });
+  area.addEventListener('dragleave', function () { area.classList.remove('dragover'); });
+  area.addEventListener('drop', function (e) {
+    e.preventDefault();
+    area.classList.remove('dragover');
+    mergeFiles(e.dataTransfer.files);
+  });
+
+  // change fires when user picks via browser dialog; capture files before syncInput overwrites input.files
+  input.addEventListener('change', function () {
+    var picked = Array.from(input.files);
+    if (picked.length > 0) mergeFiles(picked);
+  });
+
+  // Sync to input one final time at submit — belt-and-suspenders
+  var form = input.closest('form');
+  if (form) {
+    form.addEventListener('submit', function () { syncInput(); }, true);
   }
 })();
 

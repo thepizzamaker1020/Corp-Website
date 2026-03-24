@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>InPro Claims — Contents Valuation Without the Bottleneck</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--bg:#0b1220;
+--bg-soft:#0f172a;
+--card:#111827;
+--border:#1f2937;
+--text:#e5e7eb;
+--muted:#9ca3af;
+--brand:#2563eb;
+--accent:#38bdf8;
+}
+
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+font-family:Inter, sans-serif;
+background:radial-gradient(circle at 20% 20%, #0f172a, #020617);
+color:var(--text);
+}
+
+/* NAV */
+.nav{
+position:sticky;
+top:0;
+background:rgba(2,6,23,.85);
+backdrop-filter:blur(10px);
+border-bottom:1px solid var(--border);
+z-index:100;
+}
+
+.nav-inner{
+max-width:1150px;
+margin:auto;
+padding:14px 20px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:700;
+font-size:18px;
+}
+
+.logo img{
+height:32px;
+filter:brightness(0) invert(1); /* forces white */
+}
+
+.nav-links{
+display:flex;
+gap:25px;
+font-size:14px;
+}
+
+.nav-links a{
+color:var(--muted);
+text-decoration:none;
+}
+
+.nav-links a:hover{
+color:var(--text);
+}
+
+.nav-cta{
+display:flex;
+gap:10px;
+}
+
+/* GENERAL */
+.container{
+max-width:1150px;
+margin:auto;
+padding:80px 20px;
+}
+
+h1{
+font-size:48px;
+line-height:1.1;
+margin-bottom:20px;
+}
+
+h2{
+font-size:34px;
+margin-bottom:15px;
+}
+
+h3{
+font-size:20px;
+margin-bottom:10px;
+}
+
+p{
+color:var(--muted);
+line-height:1.6;
+max-width:60ch;
+}
+
+.btn{
+padding:12px 18px;
+border-radius:8px;
+font-weight:600;
+text-decoration:none;
+display:inline-block;
+}
+
+.btn-primary{
+background:linear-gradient(135deg,var(--brand),var(--accent));
+color:white;
+}
+
+.btn-outline{
+border:1px solid var(--border);
+color:var(--text);
+}
+
+/* HERO */
+.hero{
+display:grid;
+grid-template-columns:1.1fr 1fr;
+gap:60px;
+align-items:center;
+min-height:90vh;
+}
+
+.badge{
+display:inline-block;
+background:rgba(56,189,248,.12);
+border:1px solid rgba(56,189,248,.3);
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
+margin-bottom:15px;
+}
+
+.points div{
+margin-bottom:8px;
+}
+
+.card{
+background:rgba(17,24,39,.6);
+border:1px solid var(--border);
+padding:30px;
+border-radius:16px;
+}
+
+.grid-3{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+}
+
+.grid-2{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:40px;
+}
+
+.workflow{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.step{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+border:1px solid var(--border);
+}
+
+.statbar{
+display:flex;
+justify-content:space-between;
+gap:20px;
+border-top:1px solid var(--border);
+border-bottom:1px solid var(--border);
+padding:25px 0;
+}
+
+.stat{
+text-align:center;
+flex:1;
+}
+
+.section-alt{
+background:linear-gradient(180deg,#020617,#0b1220);
+}
+
+footer{
+text-align:center;
+padding:40px;
+color:var(--muted);
+font-size:14px;
+border-top:1px solid var(--border);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<header class="nav">
+<div class="nav-inner">
+
+<div class="logo">
+<img src="InPro logo_blank.png" alt="InPro Claims">
+</div>
+
+<nav class="nav-links">
+<a href="#">Solutions</a>
+<a href="#">Process</a>
+<a href="#">Industries</a>
+<a href="#">About</a>
+<a href="#">Contact</a>
+</nav>
+
+<div class="nav-cta">
+<a class="btn btn-outline" href="#">Contact</a>
+<a class="btn btn-primary" href="#">Submit</a>
+</div>
+
+</div>
+</header>
+
+<!-- HERO -->
+<section class="container hero">
+
+<div>
+<span class="badge">Canada-first • Human-reviewed • Defensible</span>
+
+<h1>Contents Valuation.<br>Without the Bottleneck.</h1>
+
+<p>
+We turn incomplete inventories into structured, carrier-ready schedules — fast, controlled, and defensible.
+</p>
+
+<div class="points">
+<div>• Canada-first sourcing</div>
+<div>• RCV → ACV per line</div>
+<div>• Human-reviewed output</div>
+</div>
+
+<div style="margin-top:25px;">
+<a href="#" class="btn btn-primary">Submit a File</a>
+<a href="#" class="btn btn-outline">View Sample</a>
+</div>
+
+</div>
+
+<div class="card">
+<h3>Carrier-Ready Output</h3>
+<ul>
+<li>Structured descriptions</li>
+<li>Consistent classification</li>
+<li>Canada-first pricing</li>
+<li>ACV & RCV per line</li>
+<li>Traceable links</li>
+<li><strong>Human-reviewed</strong></li>
+</ul>
+</div>
+
+</section>
+
+<!-- TRUST -->
+<section class="container">
+<div class="statbar">
+
+<div class="stat"><strong>Canada-Wide</strong><div>Coverage</div></div>
+<div class="stat"><strong>100%</strong><div>Human Reviewed</div></div>
+<div class="stat"><strong>LKQ</strong><div>Canada-first</div></div>
+<div class="stat"><strong>ACV / RCV</strong><div>Per line</div></div>
+
+</div>
+</section>
+
+<!-- PROBLEM -->
+<section class="container">
+<h2>The Reality of Contents Claims</h2>
+
+<div class="grid-3">
+<div class="card"><h3>Messy Inputs</h3><p>Grouped and unclear inventories.</p></div>
+<div class="card"><h3>Inconsistent Pricing</h3><p>No standardized methodology.</p></div>
+<div class="card"><h3>Delays</h3><p>Revision loops slow settlement.</p></div>
+</div>
+
+</section>
+
+<!-- WORKFLOW -->
+<section class="container section-alt">
+
+<h2>How It Works</h2>
+
+<div class="workflow">
+<div class="step"><strong>1. Intake</strong></div>
+<div class="step"><strong>2. Normalize</strong></div>
+<div class="step"><strong>3. Classify</strong></div>
+<div class="step"><strong>4. Value</strong></div>
+<div class="step"><strong>5. Review</strong></div>
+<div class="step"><strong>6. Deliver</strong></div>
+</div>
+
+</section>
+
+<!-- CTA -->
+<section class="container">
+
+<h2>Ready to Move Your File Forward?</h2>
+
+<a href="#" class="btn btn-primary">Submit a File</a>
+
+</section>
+
+<footer>
+© 2026 InPro Claims
+</footer>
+
+</body>
+</html>

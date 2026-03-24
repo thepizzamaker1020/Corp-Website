@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InPro</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: -apple-system, Segoe UI, Roboto;
+    background: #0f172a;
+    color: #e5e7eb;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    min-height: 90vh;
+}
+
+h1 { font-size: 42px; }
+
+.sub {
+    margin: 15px 0 25px;
+    color: #94a3b8;
+}
+
+.points div {
+    margin-bottom: 8px;
+    color: #94a3b8;
+}
+
+button {
+    padding: 12px 18px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.primary { background:#2563eb; color:white; }
+.secondary { background:transparent; border:1px solid #475569; color:white; }
+
+.carousel {
+    position: relative;
+    height: 320px;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.6s;
+}
+
+.slide.active { opacity: 1; }
+
+.card {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+svg { width: 120px; margin-bottom: 20px; }
+
+@keyframes floatIn {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0%,100% { opacity:1 }
+    50% { opacity:0.4 }
+}
+
+@keyframes shutter {
+    0% { opacity: 1 }
+    50% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+.doc { animation: floatIn 1s ease forwards; }
+.arrow { animation: pulse 2s infinite; }
+.cameraFlash { animation: shutter 2s infinite; }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="hero">
+
+<!-- LEFT -->
+<div>
+<h1>Contents Valuation. Without the Bottleneck.</h1>
+
+<div class="sub">
+Desk Claims or Onsites. Structured, priced, and ready for review.
+</div>
+
+<div class="points">
+<div>• Canada-first retail pricing</div>
+<div>• Consistent RCV → ACV application</div>
+<div>• Clean, structured outputs</div>
+</div>
+
+<button class="primary">Submit Claim</button>
+<button class="secondary">View Sample Output</button>
+</div>
+
+<!-- RIGHT -->
+<div class="carousel">
+
+<!-- DESK CLAIM -->
+<div class="slide active">
+<div class="card">
+
+<svg viewBox="0 0 200 100" fill="none" stroke="#60a5fa" stroke-width="2">
+
+<!-- documents -->
+<rect class="doc" x="10" y="20" width="40" height="50" rx="3"/>
+<rect class="doc" x="20" y="15" width="40" height="50" rx="3"/>
+
+<!-- arrow -->
+<line class="arrow" x1="70" y1="45" x2="120" y2="45"/>
+<polyline class="arrow" points="110,35 120,45 110,55"/>
+
+<!-- inbox -->
+<rect x="130" y="25" width="50" height="40" rx="5"/>
+<line x1="130" y1="40" x2="180" y2="40"/>
+
+</svg>
+
+<h3>Desk Claims</h3>
+<p>Inventory sent. Structured and priced.</p>
+
+</div>
+</div>
+
+<!-- ONSITE -->
+<div class="slide">
+<div class="card">
+
+<svg viewBox="0 0 200 100" fill="none" stroke="#60a5fa" stroke-width="2">
+
+<!-- boots -->
+<rect x="20" y="55" width="30" height="20" rx="3"/>
+<rect x="60" y="55" width="30" height="20" rx="3"/>
+
+<!-- camera -->
+<rect x="120" y="35" width="40" height="25" rx="4"/>
+<circle cx="140" cy="48" r="6"/>
+
+<!-- flash -->
+<circle class="cameraFlash" cx="140" cy="48" r="12" stroke="#60a5fa" stroke-width="1"/>
+
+</svg>
+
+<h3>Onsites</h3>
+<p>Documented and built from the loss.</p>
+
+</div>
+</div>
+
+<!-- OTHER SLIDES (UNCHANGED STYLE) -->
+
+<div class="slide">
+<div class="card">
+<h3>Structured Output</h3>
+<p>Clean, categorized line items</p>
+</div>
+</div>
+
+<div class="slide">
+<div class="card">
+<h3>Canada-First Pricing</h3>
+<p>Retail sourcing aligned to Canadian market</p>
+</div>
+</div>
+
+<div class="slide">
+<div class="card">
+<h3>RCV → ACV</h3>
+<p>Consistent depreciation applied</p>
+</div>
+</div>
+
+<div class="slide">
+<div class="card">
+<h3>Review-Ready</h3>
+<p>Organized and easy to move forward</p>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+let i = 0;
+const slides = document.querySelectorAll(".slide");
+
+setInterval(() => {
+    slides[i].classList.remove("active");
+    i = (i + 1) % slides.length;
+    slides[i].classList.add("active");
+}, 5000);
+</script>
+
+</body>
+</html>

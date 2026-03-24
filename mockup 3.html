@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InPro - Contents Valuation</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+    background: #0f172a;
+    color: #e5e7eb;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    min-height: 90vh;
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.sub {
+    font-size: 18px;
+    color: #cbd5f5;
+    margin-bottom: 25px;
+}
+
+.points {
+    margin-bottom: 30px;
+}
+
+.points div {
+    margin-bottom: 8px;
+    color: #94a3b8;
+}
+
+button {
+    padding: 12px 18px;
+    border: none;
+    margin-right: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.primary {
+    background: #2563eb;
+    color: white;
+}
+
+.secondary {
+    background: transparent;
+    border: 1px solid #475569;
+    color: #e5e7eb;
+}
+
+.carousel {
+    position: relative;
+    height: 320px;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.card {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 25px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #94a3b8;
+}
+
+svg {
+    width: 80px;
+    margin-bottom: 15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="hero">
+
+        <!-- LEFT CONTENT -->
+        <div>
+            <h1>Contents Valuation. Without the Bottleneck.</h1>
+
+            <div class="sub">
+                Desk Claims or Onsites. Structured, priced, and ready for review.
+            </div>
+
+            <div class="points">
+                <div>• Canada-first retail pricing</div>
+                <div>• Consistent RCV → ACV application</div>
+                <div>• Clean, structured outputs</div>
+            </div>
+
+            <button class="primary">Submit Claim</button>
+            <button class="secondary">View Sample Output</button>
+        </div>
+
+        <!-- RIGHT CAROUSEL -->
+        <div class="carousel">
+
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <div class="card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="16" rx="2"/>
+                        <line x1="7" y1="8" x2="17" y2="8"/>
+                        <line x1="7" y1="12" x2="17" y2="12"/>
+                    </svg>
+                    <h3>Desk Claims</h3>
+                    <p>Standardize and price existing inventories</p>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide">
+                <div class="card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M2 12h3M19 12h3M12 2v3M12 19v3"/>
+                    </svg>
+                    <h3>Onsites</h3>
+                    <p>Document and build inventories from the loss</p>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide">
+                <div class="card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
+                        <path d="M3 3h18v18H3z"/>
+                        <path d="M8 12l2 2 4-4"/>
+                    </svg>
+                    <h3>Structured Output</h3>
+                    <p>Clean, categorized line items</p>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="slide">
+                <div class="card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
+                        <path d="M12 1v22M5 5h10M5 19h10"/>
+                    </svg>
+                    <h3>Canada-First Pricing</h3>
+                    <p>Retail sourcing aligned to Canadian market</p>
+                </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="slide">
+                <div class="card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                    <h3>RCV → ACV</h3>
+                    <p>Consistent depreciation applied</p>
+                </div>
+            </div>
+
+            <!-- Slide 6 -->
+            <div class="slide">
+                <div class="card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
+                        <path d="M4 4h16v16H4z"/>
+                        <path d="M9 12l2 2 4-4"/>
+                    </svg>
+                    <h3>Review-Ready</h3>
+                    <p>Organized and easy to move forward</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+let index = 0;
+const slides = document.querySelectorAll(".slide");
+
+setInterval(() => {
+    slides[index].classList.remove("active");
+    index = (index + 1) % slides.length;
+    slides[index].classList.add("active");
+}, 5000);
+</script>
+
+</body>
+</html>

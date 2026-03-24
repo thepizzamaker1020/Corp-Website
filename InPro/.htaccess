@@ -1,0 +1,18 @@
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://inproclaims.com%{REQUEST_URI} [L,R=301]
+
+# Force non-www
+RewriteCond %{HTTP_HOST} ^www\.inproclaims\.com [NC]
+RewriteRule ^ https://inproclaims.com%{REQUEST_URI} [L,R=301]
+
+DirectoryIndex index.html
+Options -Indexes
+
+# PHP upload limits for claim file submissions
+php_value upload_max_filesize 50M
+php_value post_max_size 200M
+php_value max_execution_time 120
+php_value memory_limit 256M
