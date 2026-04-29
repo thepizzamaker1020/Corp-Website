@@ -7,6 +7,7 @@
   <meta name="description" content="Submit your contents claim to InPro. Complete adjuster, policyholder, and claim details. Attach files in any format."/>
   <link rel="icon" href="../assets/img/IP.ico"/>
   <link rel="stylesheet" href="../assets/css/styles.css"/>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <style>
     .form-section-block { margin-bottom: 40px; padding-bottom: 36px; border-bottom: 1px solid var(--line); }
     .form-section-block:last-child { border-bottom: none; margin-bottom: 0; }
@@ -122,22 +123,6 @@
                 <label for="ia_file_number">Independent Adjuster File № <span class="optional-tag">if applicable</span></label>
                 <input type="text" id="ia_file_number" name="ia_file_number" placeholder="IA File Number"/>
               </div>
-            </div>
-
-            <div class="form-row form-group">
-              <div class="form-group" style="margin-bottom:0">
-                <label for="examiner_name">Examiner Name <span class="optional-tag">if applicable</span></label>
-                <input type="text" id="examiner_name" name="examiner_name" placeholder="Examiner / Carrier Rep"/>
-              </div>
-              <div class="form-group" style="margin-bottom:0">
-                <label for="examiner_email">Examiner Email <span class="optional-tag">if applicable</span></label>
-                <input type="email" id="examiner_email" name="examiner_email" placeholder="examiner@carrier.com"/>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="examiner_phone">Examiner Phone Number <span class="optional-tag">if applicable</span></label>
-              <input type="tel" id="examiner_phone" name="examiner_phone" placeholder="(416) 555-0200" style="max-width:300px"/>
             </div>
 
             <div class="form-row form-group">
@@ -357,13 +342,17 @@
                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" style="color:var(--blue);margin:0 auto 12px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="17 8 12 3 7 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="3" x2="12" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 <p><strong>Click to upload</strong> or drag and drop files here</p>
                 <p style="font-size:13px;color:var(--muted);margin-top:6px">Please attach supporting files such as a Content List or Schedule of Loss. <strong>Native Excel format is preferred</strong> for faster processing, but all file types are accepted.</p>
-                <p class="file-types" style="margin-top:8px">Excel · PDF · Word · JPG · PNG · HEIC · ZIP · CSV — up to 50 MB per file</p>
+                <p class="file-types" style="margin-top:8px">Excel · PDF · Word · JPG · PNG · HEIC · ZIP · CSV — 15 MB total</p>
               </div>
               <div class="file-list" id="fileList"></div>
+              <div id="fileSizeError" style="display:none;margin-top:12px;padding:12px 16px;background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;color:#b91c1c;font-size:13.5px;line-height:1.5">
+                <strong>Total file size exceeds 15 MB.</strong> Please reduce the number of files attached, or email large files directly to <a href="mailto:claims@inproclaims.com" style="color:#b91c1c;font-weight:700">claims@inproclaims.com</a> and reference your claim number. You can still submit this form without the oversized files.
+              </div>
               <p class="form-hint" style="margin-top:10px">If you are unable to upload files, email them directly to <a href="mailto:claims@inproclaims.com" style="color:var(--blue)">claims@inproclaims.com</a> and reference your claim number.</p>
             </div>
           </div>
 
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAACwyWgp6kBxaCOSr" style="margin-bottom:16px"></div>
           <div class="form-submit-row">
             <p style="font-size:13px;color:var(--muted)">All files handled securely and confidentially.</p>
             <button type="submit" class="btn teal lg">
@@ -438,5 +427,26 @@
 </footer>
 
 <script src="../assets/js/main.js"></script>
+<script>
+(function () {
+  var p = new URLSearchParams(window.location.search);
+  var msg = '';
+  if (p.get('error') === 'filesize') {
+    msg = '<strong>Your attached files exceed the 15 MB limit.</strong> Please submit the form without files and email your attachments separately to <a href="mailto:claims@inproclaims.com" style="color:#b91c1c;font-weight:700">claims@inproclaims.com</a> referencing your claim number.';
+  } else if (p.get('error') === 'bot') {
+    msg = '<strong>Security check failed.</strong> Please refresh the page and try again.';
+  } else if (p.get('error')) {
+    msg = '<strong>There was a problem submitting your claim.</strong> Please try again or email us directly at <a href="mailto:claims@inproclaims.com" style="color:#b91c1c;font-weight:700">claims@inproclaims.com</a>.';
+  }
+  if (msg) {
+    var banner = document.createElement('div');
+    banner.style.cssText = 'background:#fef2f2;border:1px solid #fca5a5;color:#b91c1c;padding:14px 20px;border-radius:8px;margin-bottom:24px;font-size:14px;line-height:1.5';
+    banner.innerHTML = msg;
+    var card = document.querySelector('.form-card');
+    if (card) card.insertBefore(banner, card.firstChild);
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+})();
+</script>
 </body>
 </html>

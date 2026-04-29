@@ -104,8 +104,13 @@
 (function () {
   const form = document.getElementById('claimForm');
   if (!form) return;
+
+  const MAX_TOTAL_BYTES = 15 * 1024 * 1024; // 15 MB total across all files
+
   form.addEventListener('submit', function (e) {
     let valid = true;
+
+    // Required field check
     form.querySelectorAll('[required]').forEach(el => {
       if (!el.value.trim()) {
         el.style.borderColor = '#ef4444';
@@ -113,10 +118,25 @@
         el.addEventListener('input', () => el.style.borderColor = '', { once: true });
       }
     });
+
+    // Total file size check
+    var fileInput = document.getElementById('fileInput');
+    var sizeError = document.getElementById('fileSizeError');
+    if (fileInput && fileInput.files.length > 0) {
+      var totalBytes = 0;
+      Array.from(fileInput.files).forEach(function (f) { totalBytes += f.size; });
+      if (totalBytes > MAX_TOTAL_BYTES) {
+        valid = false;
+        if (sizeError) sizeError.style.display = 'block';
+      } else {
+        if (sizeError) sizeError.style.display = 'none';
+      }
+    }
+
     if (!valid) {
       e.preventDefault();
-      const first = form.querySelector('[required]');
-      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var firstInvalid = form.querySelector('[required][style*="ef4444"]') || document.getElementById('fileSizeError');
+      if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   });
 })();
@@ -127,16 +147,30 @@
   if (!loginForm) return;
   loginForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    const btn  = loginForm.querySelector('.btn-login');
-    const err  = document.getElementById('loginError');
-    const orig = btn.textContent;
+    const btn   = loginForm.querySelector('.btn-login');
+    const err   = document.getElementById('loginError');
+    const orig  = btn.textContent;
+    const token = loginForm.querySelector('[name="cf-turnstile-response"]');
+
+    if (!token || !token.value) {
+      if (err) {
+        err.querySelector('div').innerHTML = '<strong>Please complete the security check</strong> before signing in.';
+        err.style.display = 'flex';
+      }
+      return;
+    }
+
     btn.textContent = 'Authenticating…';
     btn.disabled = true;
     if (err) err.style.display = 'none';
     setTimeout(() => {
       btn.textContent = orig;
       btn.disabled = false;
-      if (err) err.style.display = 'flex';
+      if (err) {
+        err.querySelector('div').innerHTML = '<strong>Authentication failed.</strong> Please check your credentials and try again, or contact your administrator.';
+        err.style.display = 'flex';
+      }
+      if (typeof turnstile !== 'undefined') turnstile.reset();
     }, 2200);
   });
 })();

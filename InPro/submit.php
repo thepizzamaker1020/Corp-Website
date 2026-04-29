@@ -5,12 +5,27 @@
  */
 
 // ─── Config ───
-define('CLAIMS_EMAIL', 'claims@inproclaims.com');
-define('FROM_EMAIL',   'noreply@inproclaims.com');
-define('FROM_NAME',    'InPro Claim Submission');
-define('MAX_FILE_SIZE', 52428800); // 50 MB per file
+define('CLAIMS_EMAIL',     'claims@inproclaims.com');
+define('FROM_EMAIL',       'noreply@inproclaims.com');
+define('FROM_NAME',        'InPro Claim Submission');
+define('MAX_FILE_SIZE',    20971520); // 20 MB per file
+define('MAX_TOTAL_SIZE',   15728640); // 15 MB total across all files
+define('TURNSTILE_SECRET', '0x4AAAAAACwyWlJxSE3IC1aduw2e7o_3tjk');
 
 // ─── Helpers ───
+function verify_turnstile(string $token): bool {
+    $resp = file_get_contents('https://challenges.cloudflare.com/turnstile/v0/siteverify', false, stream_context_create([
+        'http' => [
+            'method'  => 'POST',
+            'header'  => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => http_build_query(['secret' => TURNSTILE_SECRET, 'response' => $token]),
+        ],
+    ]));
+    if ($resp === false) return false;
+    $data = json_decode($resp, true);
+    return !empty($data['success']);
+}
+
 function sanitize(string $val): string {
     return htmlspecialchars(strip_tags(trim($val)), ENT_QUOTES, 'UTF-8');
 }
@@ -30,6 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// ─── Turnstile bot check ───
+$turnstile_token = $_POST['cf-turnstile-response'] ?? '';
+if (empty($turnstile_token) || !verify_turnstile($turnstile_token)) {
+    header('Location: pages/submit-claim.html?error=bot');
+    exit;
+}
+
 // ─── Section 1: Adjuster & Claim Information ───
 $insurance_company     = sanitize($_POST['insurance_company']     ?? '');
 $insurer_claim_number  = sanitize($_POST['insurer_claim_number']  ?? '');
@@ -39,9 +61,6 @@ $adj_email             = sanitize($_POST['adj_email']             ?? '');
 $adj_phone             = sanitize($_POST['adj_phone']             ?? '');
 $ia_company            = sanitize($_POST['ia_company']            ?? '');
 $ia_file_number        = sanitize($_POST['ia_file_number']        ?? '');
-$examiner_name         = sanitize($_POST['examiner_name']         ?? '');
-$examiner_email        = sanitize($_POST['examiner_email']        ?? '');
-$examiner_phone        = sanitize($_POST['examiner_phone']        ?? '');
 $claim_type            = sanitize($_POST['claim_type']            ?? '');
 $content_loss_estimate = sanitize($_POST['content_loss_estimate'] ?? '');
 $policy_limit          = sanitize($_POST['policy_limit']          ?? '');
@@ -102,6 +121,15 @@ $attachments = [];
 $upload_dir  = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'inpro_uploads_' . uniqid();
 mkdir($upload_dir, 0755, true);
 
+// ─── Guard: total file size ───
+if (!empty($_FILES['claim_files']['size'])) {
+    $total_size = array_sum($_FILES['claim_files']['size']);
+    if ($total_size > MAX_TOTAL_SIZE) {
+        header('Location: pages/submit-claim.html?error=filesize');
+        exit;
+    }
+}
+
 if (!empty($_FILES['claim_files']['name'][0])) {
     $allowed_types = [
         'application/pdf', 'application/msword',
@@ -156,9 +184,6 @@ $internal_body .= "Adjuster Email:       {$adj_email}\n";
 $internal_body .= "Adjuster Phone:       {$adj_phone}\n";
 if ($ia_company)     $internal_body .= "IA Company:           {$ia_company}\n";
 if ($ia_file_number) $internal_body .= "IA File Number:       {$ia_file_number}\n";
-if ($examiner_name)  $internal_body .= "Examiner Name:        {$examiner_name}\n";
-if ($examiner_email) $internal_body .= "Examiner Email:       {$examiner_email}\n";
-if ($examiner_phone) $internal_body .= "Examiner Phone:       {$examiner_phone}\n";
 $internal_body .= "Claim Type:           {$claim_type}\n";
 if ($content_loss_estimate) $internal_body .= "Content Loss Est:     " . fmt_currency($content_loss_estimate) . "\n";
 if ($policy_limit)          $internal_body .= "Policy Limit:         " . fmt_currency($policy_limit) . "\n";
